@@ -51,7 +51,9 @@ export default function Home() {
     const counters = document.querySelectorAll('.counter');
     const startCountAnimation = () => {
       counters.forEach((counter) => {
-        const target = parseInt(counter.getAttribute('data-target') || '0');
+        const targetAttr = counter.getAttribute('data-target') || '0';
+        const isPercentage = targetAttr.includes('%');
+        const target = parseInt(targetAttr) || 0;
         const duration = 2000;
         const increment = target / (duration / 16);
         let current = 0;
@@ -59,10 +61,12 @@ export default function Home() {
         const updateCounter = () => {
           current += increment;
           if (current < target) {
-            counter.textContent = Math.floor(current).toString();
+            const value = Math.floor(current).toString();
+            counter.textContent = isPercentage ? value + '%' : value;
             requestAnimationFrame(updateCounter);
           } else {
-            counter.textContent = target.toString();
+            const finalValue = target.toString();
+            counter.textContent = isPercentage ? finalValue + '%' : finalValue;
           }
         };
 
@@ -165,51 +169,23 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="fade-in-right relative">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-400 to-green-600 rounded-3xl transform rotate-3 opacity-20"></div>
-                <div className="card-elevated p-8 transform -rotate-1">
-                  <div className="space-y-6">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-                      <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
-                      <div className="h-40 bg-gradient-to-br from-amber-50 to-green-50 rounded-xl flex items-center justify-center border-2 border-dashed border-amber-300">
-                        <div className="text-center space-y-2">
-                          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto">
-                            <svg className="w-8 h-8 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm3 1h6v4H7V5zm8 8v2h1a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1a1 1 0 011-1h1v-2H4a1 1 0 01-1-1V9a1 1 0 011-1h1V7a1 1 0 011-1v2h8V7a1 1 0 011 1v1h1a1 1 0 011 1v3a1 1 0 01-1 1h-1z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <p className="text-sm font-medium text-amber-700">Project Blueprint</p>
-                        </div>
-                      </div>
-                      <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           {/* Stats Section */}
           <div id="stats" className="fade-in-up delay-400 grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 pt-16 border-t border-gray-200">
             <div className="stats-item">
-              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="15">0</div>
+              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="10">0</div>
               <div className="text-lg font-medium text-white">Years Experience</div>
               <div className="text-sm text-gray-100 mt-1">Proven track record</div>
             </div>
             <div className="stats-item">
-              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="500">0</div>
+              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="20">0</div>
               <div className="text-lg font-medium text-white">Projects Completed</div>
               <div className="text-sm text-gray-100 mt-1">Satisfied customers</div>
             </div>
             <div className="stats-item">
-              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="100">0</div>
+              <div className="counter text-4xl lg:text-5xl font-black text-white mb-2" data-target="100%">100%</div>
               <div className="text-lg font-medium text-white">Client Satisfaction</div>
               <div className="text-sm text-gray-100 mt-1">Quality guaranteed</div>
             </div>
