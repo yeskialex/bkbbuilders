@@ -729,7 +729,7 @@ export default function Home() {
             </div>
             <div className="text-center lg:text-right">
               <p className="text-gray-400">
-                © 2026 Basileia Koinonia Builders. All rights reserved.
+                © 2015 Basileia Koinonia Builders. All rights reserved.
               </p>
               <p className="text-gray-500 text-sm mt-1">
                 Building excellence, one project at a time.
